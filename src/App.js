@@ -1,6 +1,7 @@
-import { Component } from 'react';
+import { Component, Fragment } from 'react';
 import './App.css';
 import { Card } from './components/Card';
+import { Modal } from './components/Modal';
 
 class App extends Component {
   constructor() {
@@ -20,9 +21,13 @@ class App extends Component {
   render() {
     return (
       <div className='container'>
+        <h1 className="head">SpaceX</h1>
         <div className='row'>
           {this.state.flights.map((flight) => (
-            <Card flight={flight} />
+            <Fragment>
+              <Card flight={flight} />
+              <Modal flight={flight} />
+            </Fragment>
           ))}
         </div>
       </div>
