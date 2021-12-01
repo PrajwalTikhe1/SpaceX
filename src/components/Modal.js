@@ -1,6 +1,6 @@
-import { Youtube } from '../utils/Youtube';
-import { Wikipedia } from '../utils/Wikipedia';
-import { Article } from '../utils/Article';
+import { Youtube } from './utils/Youtube';
+import { Wikipedia } from './utils/Wikipedia';
+import { Article } from './utils/Article';
 
 export const Modal = ({ flight }) => {
   return (

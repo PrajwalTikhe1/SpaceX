@@ -1,5 +1,9 @@
 .App {
   text-align: center;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  flex-direction: column;
 }
 
 .head {
@@ -8,6 +12,38 @@
   text-align: center;
   color: #fff;
   margin: 20px 0;
+}
+
+.searchbar {
+  margin: 5px 0 15px 0;
+  width: 400px;
+  height: 40px;
+  font-size: 16px;
+  padding-left: 10px;
+}
+
+.filter-wrapper {
+  width: 150px;
+  margin: 0 auto;
+  margin-bottom: 20px;
+}
+
+.filter-launchyear {
+  padding: 5px;
+  text-align: center;
+  width: 100%;
+}
+
+.filter-upcoming {
+  padding: 5px;
+  text-align: center;
+  width: 100%;
+}
+
+.filter-launchstatus {
+  padding: 5px;
+  text-align: center;
+  width: 100%;
 }
 
 .card img {
