@@ -1,40 +1,30 @@
 import { Component } from 'react';
-import logo from './logo.svg';
 import './App.css';
+import { Card } from './components/Card';
 
 class App extends Component {
   constructor() {
     super();
 
     this.state = {
-      message: 'Hello react',
+      flights: [],
     };
   }
 
   componentDidMount() {
     fetch('https://api.spacexdata.com/v3/launches')
       .then((response) => response.json())
-      .then((rockets) => console.log(rockets));
+      .then((flights) => this.setState({ flights: flights }));
   }
 
   render() {
     return (
-      <div className='App'>
-        <header className='App-header'>
-          <img src={logo} className='App-logo' alt='logo' />
-          <p>{this.state.message}</p>
-          <a
-            className='App-link'
-            href='https://reactjs.org'
-            target='_blank'
-            rel='noopener noreferrer'
-          >
-            Learn React
-          </a>
-          <button onClick={() => this.setState({ message: 'Hello world!' })}>
-            Click Me
-          </button>
-        </header>
+      <div className='container'>
+        <div className='row'>
+          {this.state.flights.map((flight) => (
+            <Card flight={flight} />
+          ))}
+        </div>
       </div>
     );
   }
