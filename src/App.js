@@ -3,21 +3,19 @@ import { useDispatch, useSelector } from 'react-redux';
 import './App.css';
 import { Card } from './components/Card';
 import { Modal } from './components/Modal';
-import { listFlights } from './actions/FlightActions';
-import { LaunchYearFilter } from './components/filters/LaunchYearFilter';
-import { LaunchStatusFilter } from './components/filters/LaunchStatusFilter';
-import { UpcomingFilter } from './components/filters/UpcomingFilter';
+import { Loader } from './components/utils/Loader';
+import { Alerts } from './components/utils/Alerts';
+import { flightList } from './redux/flightListSlice';
+import { Filters } from './components/Filters';
 
 const App = () => {
   const [searchFlights, setSearchFlights] = useState('');
 
+  const { flights, pending, error } = useSelector((state) => state.flightList);
   const dispatch = useDispatch();
 
-  const flightList = useSelector((state) => state.flightList);
-  const { loading, error, flights } = flightList;
-
   useEffect(() => {
-    dispatch(listFlights());
+    dispatch(flightList({ flights }));
   }, [dispatch]);
 
   const filteredFlights = flights.filter((flight) => {
@@ -46,21 +44,11 @@ const App = () => {
             }}
           />
         </div>
-        <div className='row justify-content-center'>
-          <div className='col-md-2 col-md-offset-3'>
-            <LaunchYearFilter />
-          </div>
-          <div className='col-md-2'>
-            <LaunchStatusFilter />
-          </div>
-          <div className='col-md-2'>
-            <UpcomingFilter />
-          </div>
-        </div>
-        {loading ? (
-          <span>Loading</span>
+        <Filters />
+        {pending ? (
+          <Loader />
         ) : error ? (
-          <span>Error</span>
+          <Alerts variant='danger'>{error}</Alerts>
         ) : (
           <div className='row'>
             {filteredFlights.map((flight) => (
