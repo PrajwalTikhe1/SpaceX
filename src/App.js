@@ -1,12 +1,11 @@
-import { Fragment, useEffect, useState } from 'react';
+import { useEffect, useState } from 'react';
 import { useDispatch, useSelector } from 'react-redux';
 import './App.css';
-import { Card } from './components/Card';
-import { Modal } from './components/Modal';
+import { Filters } from './components/Filters';
+import { Flights } from './components/Flights';
+import { flightList } from './redux/flightListSlice';
 import { Loader } from './components/utils/Loader';
 import { Alerts } from './components/utils/Alerts';
-import { flightList } from './redux/flightListSlice';
-import { Filters } from './components/Filters';
 
 const App = () => {
   const [searchFlights, setSearchFlights] = useState('');
@@ -15,7 +14,7 @@ const App = () => {
   const dispatch = useDispatch();
 
   useEffect(() => {
-    dispatch(flightList({ flights }));
+    dispatch(flightList());
   }, [dispatch]);
 
   const filteredFlights = flights.filter((flight) => {
@@ -50,14 +49,7 @@ const App = () => {
         ) : error ? (
           <Alerts variant='danger'>{error}</Alerts>
         ) : (
-          <div className='row'>
-            {filteredFlights.map((flight) => (
-              <Fragment>
-                <Card flight={flight} />
-                <Modal flight={flight} />
-              </Fragment>
-            ))}
-          </div>
+          <Flights filteredFlights={filteredFlights} />
         )}
       </div>
     </>
